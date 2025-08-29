@@ -1509,9 +1509,45 @@ export const mockData = {
         id: "3846813d-0dc8-d34c-e0a6-9da900426a9e"
       },
       {
-        value: "\n",
+        value: "\n月经史示例：\n",
         size: 14,
         bold: true,
+        rowFlex: "left"
+      },
+      {
+        value: "",
+        type: "dataImage",
+        size: 14,
+        rowFlex: "left",
+        width: 200,
+        height: 150,
+        conceptId: "data_image_menstrual_history_example",
+        imgDisplay: "float-top",
+        imgFloatPosition: {
+          x: 100,
+          y: 100,
+          pageNo: 0
+        },
+        imageData: {
+          type: "mh",
+          data: {
+            menarcheAge: 13,
+            isRegular: "Y",
+            cycleDays: 28,
+            periodDays: 5,
+            lastMenstruationDate: "2023-07-15",
+            bloodVolume: "M",
+            dysmenorrhea: "L",
+            abnormalSymptoms: "无异常",
+            isPregnant: "",
+            remarks: "月经规律，偶有轻度痛经"
+          }
+        }
+      },
+      {
+        value: "\n",
+        size: 14,
+        bold: false,
         rowFlex: "left"
       }
     ],

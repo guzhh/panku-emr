@@ -203,7 +203,15 @@ const innerMH = () => {
       value: "",
       imageData: {
         type: DataImageType.MH,
-        data: {}
+        data: {
+          menarcheAge: 13, // 初潮年龄
+          periodDaysMin: 5, // 月经持续最小天数
+          periodDaysMax: 7, // 月经持续最大天数
+          cycleDaysMin: 28, // 生理周期最小天数
+          cycleDaysMax: 30, // 生理周期最大天数
+          lastMenstruationDate: new Date().toISOString().split("T")[0], // 末次月经日期
+          isMenopause: "N" // 是否闭经
+        }
       }
     }
   ]);

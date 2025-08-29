@@ -1,26 +1,25 @@
 <template>
   <div class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
-      <div>
+    <div class="editor-container">
+      <div style="width: 150px; flex-shrink: 0">
+        <span>初潮年龄：</span>
         <a-input-number
-          :style="{ width: '160px' }"
-          v-model="data.firstYear"
           :min="0"
           :max="99"
+          :step="1"
           hide-button
           size="small"
-          :step="1"
           :precision="0"
+          :style="{ width: '80px' }"
+          v-model="data.firstYear"
         >
-          <template #prefix> 初潮年龄：</template>
           <template #suffix> 岁 </template>
         </a-input-number>
       </div>
-      <div>
+      <div style="width: 230px; flex-shrink: 0">
         <a-input-group>
           <span style="margin-right: 8px">月经持续</span>
           <a-input-number
-            :style="{ width: '60px' }"
             v-model="data.durationDays"
             :min="0"
             :max="99"
@@ -28,10 +27,11 @@
             size="small"
             :step="1"
             :precision="0"
+            :style="{ width: '60px' }"
+            placeholder="最短"
           />
           <div style="width: 20px; text-align: center">~</div>
           <a-input-number
-            :style="{ width: '60px' }"
             v-model="data.durationDays2"
             :min="0"
             :max="99"
@@ -39,6 +39,8 @@
             size="small"
             :step="1"
             :precision="0"
+            :style="{ width: '60px' }"
+            placeholder="最长"
           />
           <span style="margin-left: 8px">天</span>
         </a-input-group>
@@ -46,7 +48,6 @@
         <a-input-group>
           <span style="margin-right: 8px">生理周期</span>
           <a-input-number
-            :style="{ width: '60px' }"
             v-model="data.cycleDays"
             :min="0"
             :max="99"
@@ -54,10 +55,11 @@
             size="small"
             :step="1"
             :precision="0"
+            :style="{ width: '60px' }"
+            placeholder="最短"
           />
           <div style="width: 20px; text-align: center">~</div>
           <a-input-number
-            :style="{ width: '60px' }"
             v-model="data.cycleDays2"
             :min="0"
             :max="99"
@@ -65,31 +67,35 @@
             size="small"
             :step="1"
             :precision="0"
+            :style="{ width: '60px' }"
+            placeholder="最长"
           />
           <span style="margin-left: 8px">天</span>
         </a-input-group>
       </div>
       <div>
-        <a-input-number
-          v-if="isAmenorrhea"
-          :style="{ width: '160px' }"
-          :min="0"
-          :max="99"
-          hide-button
-          size="small"
-          :step="1"
-          :precision="0"
-          v-model="data.lastYear"
-        >
-          <template #prefix> 闭经年龄：</template>
-          <template #suffix> 岁 </template>
-        </a-input-number>
-        <a-date-picker style="width: 210px" v-else size="small" format="YYYY-MM-DD" v-model="data.lastDate">
-          <template #prefix> 末次日期:</template>
-        </a-date-picker>
+        <div v-if="isAmenorrhea">
+          <span>闭经年龄：</span>
+          <a-input-number
+            :style="{ width: '80px' }"
+            :min="0"
+            :max="99"
+            hide-button
+            size="small"
+            :step="1"
+            :precision="0"
+            v-model="data.lastYear"
+          >
+            <template #suffix> 岁 </template>
+          </a-input-number>
+        </div>
+        <div v-else>
+          <span>末次日期：</span>
+          <a-date-picker style="width: 120px" size="small" format="YYYY-MM-DD" v-model="data.lastDate"> </a-date-picker>
+        </div>
       </div>
     </div>
-    <div style="width: 100%; margin-top: 30px; justify-content: end; display: flex; align-items: center">
+    <div class="radio-container">
       <span>是否闭经：</span>
       <div style="width: 180px">
         <a-radio-group v-model="isAmenorrhea">
@@ -106,23 +112,36 @@ import { type IDataImageMap } from "@panku/canvas-editor/dist/src/editor/interfa
 import { DataImageType } from "@panku/canvas-editor";
 import { ref } from "vue";
 
-interface Props {
-  imageData: IDataImageMap[DataImageType.MH];
-}
+const props = defineProps<{
+  modelValue: IDataImageMap[DataImageType.MH];
+}>();
 
-const props = withDefaults(defineProps<Props>(), {});
+const emit = defineEmits(["update:modelValue"]);
 
-const data = ref<IDataImageMap[DataImageType.MH]>({ ...props.imageData });
-const isAmenorrhea = ref(!props.imageData.lastDate);
+const data = ref<IDataImageMap[DataImageType.MH]>({ ...props.modelValue });
+const isAmenorrhea = ref(!props.modelValue.lastDate);
 
-const getData = (): IDataImageMap[DataImageType.MH] => {
-  if (isAmenorrhea.value) {
-    return JSON.parse(JSON.stringify({ ...data.value, lastDate: undefined }));
-  } else {
-    return JSON.parse(JSON.stringify({ ...data.value, lastYear: undefined }));
-  }
-};
-defineExpose({ getData });
+watch(
+  () => data.value,
+  newValue => {
+    emit("update:modelValue", newValue);
+  },
+  { deep: true }
+);
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.editor-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.radio-container {
+  width: 100%;
+  margin-top: 30px;
+  justify-content: end;
+  display: flex;
+  align-items: center;
+}
+</style>

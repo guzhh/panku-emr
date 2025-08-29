@@ -1,9 +1,9 @@
 import { Editor, DataImageType } from "@panku/canvas-editor";
 import { Input, Modal } from "@arco-design/web-vue";
-import MenstrualHistoryViewer from "../../components/data-image/menstrual-history.vue";
 import { openFetalHeartSettings } from "@/views/editor/components/data-image/fetal-heart.tsx";
 import type { IDataImageMap } from "@panku/canvas-editor/dist/src/editor/interface/DataImage";
 import { openToothPositionSettings } from "@/views/editor/components/data-image/tooth-position.tsx";
+import { openMenstrualHistorySettings } from "@/views/editor/components/data-image/menstrual-history.tsx";
 
 export function useDataImageHook() {
   let instance: Editor | null = null;
@@ -51,35 +51,16 @@ export function useDataImageHook() {
         });
       } else if (element.imageData!.type === DataImageType.MH) {
         // 月经史
-        const componentRef = ref(null);
-        Modal.open({
-          width: "650px",
-          title: `月经史表达式`,
-          titleAlign: "start",
-          maskClosable: false,
-          escToClose: false,
-          draggable: true,
-          modalClass: "editor-component",
-          content: () =>
-            h(MenstrualHistoryViewer, {
-              imageData: element.imageData!.data as IDataImageMap[DataImageType.MH],
-              ref: componentRef
-            }),
-          onOk: () => {
-            // 调用组件的 getData 方法
-            if (componentRef.value && typeof (componentRef.value as any).getData === "function") {
-              const data = (componentRef.value as any).getData();
-              // 处理获取到的数据
-              instance!.command.executeUpdateElementById({
-                conceptId: element.conceptId,
-                properties: {
-                  imageData: { type: element.imageData!.type, data: data }
-                }
-              });
+        openMenstrualHistorySettings(element.imageData!.data as IDataImageMap[DataImageType.MH]).then(value => {
+          instance!.command.executeUpdateElementById({
+            conceptId: element.conceptId,
+            properties: {
+              imageData: { type: element.imageData!.type, data: value }
             }
-          }
+          });
         });
       } else if (element.imageData!.type === DataImageType.HR) {
+        // 胎位图
         openFetalHeartSettings(element.imageData!.data as IDataImageMap[DataImageType.HR]).then(value => {
           instance!.command.executeUpdateElementById({
             conceptId: element.conceptId,
@@ -89,6 +70,7 @@ export function useDataImageHook() {
           });
         });
       } else if (element.imageData!.type === DataImageType.FDI) {
+        // 牙位图
         openToothPositionSettings(element.imageData!.data as IDataImageMap[DataImageType.FDI]).then(value => {
           instance!.command.executeUpdateElementById({
             conceptId: element.conceptId,
