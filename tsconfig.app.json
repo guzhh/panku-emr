@@ -1,0 +1,39 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+      // 模块名到基于 baseUrl 的路径映射的列表
+    },
+    "resolveJsonModule": true,
+    // 是否解析 JSON 模块
+    "allowJs": true,
+    // 允许编译 javascript 文件
+    "checkJs": true,
+    // 报告 javascript 文件中的错误
+    /* Linting */
+    "strict": true,
+    // 开启所有严格的类型检查
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.js"
+  ]
+  // 指定不需要被编译的目录
+}

@@ -1,0 +1,73 @@
+{
+  "name": "@panku/canvas-editor",
+  "author": "Hufe",
+  "license": "MIT",
+  "version": "0.9.115",
+  "description": "rich text editor by canvas/svg",
+  "publishConfig": {
+    "registry": "http://192.168.1.163:4873/",
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "typings": "./dist/src/editor/index.d.ts",
+  "main": "./dist/canvas-editor.umd.js",
+  "module": "./dist/canvas-editor.es.js",
+  "homepage": "https://github.com/Hufe921/canvas-editor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hufe921/canvas-editor.git"
+  },
+  "keywords": [
+    "canvas-editor",
+    "editor",
+    "wysiwyg",
+    "emr"
+  ],
+  "engines": {
+    "node": ">=16.9.1"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lib": "npm run lint && tsc && vite build --mode lib",
+    "build": "npm run lint && tsc && vite build --mode app",
+    "serve": "vite preview",
+    "lint": "eslint .",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "type:check": "tsc --noEmit",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "release": "node scripts/release.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@types/node": "16.18.96",
+    "@types/prismjs": "^1.26.0",
+    "@types/qrcodejs": "^1.0.4",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "cypress": "13.6.0",
+    "cypress-file-upload": "^5.0.8",
+    "eslint": "7.32.0",
+    "simple-git-hooks": "^2.8.1",
+    "typescript": "4.9.5",
+    "vite": "^2.4.2",
+    "vite-plugin-css-injected-by-js": "^2.1.1",
+    "vitepress": "1.0.0-beta.6",
+    "vue": "^3.2.45"
+  },
+  "dependencies": {
+    "@zxing/browser": "^0.1.5",
+    "@zxing/library": "^0.21.3",
+    "jsbarcode": "^3.12.1",
+    "prismjs": "^1.27.0"
+  }
+}

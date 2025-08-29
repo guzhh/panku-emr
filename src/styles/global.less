@@ -1,0 +1,327 @@
+/* 全局样式 */
+@import "./var.less";
+
+// hover按钮
+.pk_hover_btn {
+  border: 0 !important;
+  background-color: transparent;
+
+  &:hover {
+    background: var(--color-secondary-hover) !important;
+  }
+
+  &:active {
+    background: var(--color-secondary-active) !important;
+  }
+}
+
+// 通用盒子
+.pk_box {
+  background: var(--color-bg-1);
+  border-radius: @radius-box;
+  overflow: hidden;
+}
+
+// 卡片组件，使body的高度自动撑满
+.pk_card {
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .arco-card-body {
+    flex: 1;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+  }
+}
+
+// 卡片标题，标题左侧的伪类样式
+.pk_card_title {
+  .arco-card-header-title::before {
+    content: "";
+    width: 4px;
+    height: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgb(var(--warning-5));
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+// 使用场景，页面内容超出高度会自动滚动
+.pk_page {
+  flex: 1;
+  padding: @margin;
+  box-sizing: border-box;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+// 表格页面
+.pk_table_page {
+  flex: 1;
+  overflow: hidden;
+  margin: @margin;
+  background: var(--color-bg-1);
+  padding: @padding;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+
+// 表格类名 高度自适应
+.pk_table {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+
+  > .arco-spin {
+    max-height: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+}
+
+// 表格类名，高度自适应，分页始终固定在最底部
+.pk_full_table {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+
+  .arco-table-container {
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .arco-table-scroll-y {
+    border-right: 1px solid var(--color-border-table);
+  }
+
+  .arco-table-tr .arco-table-td:last-child,
+  .arco-table-tr .arco-table-th:last-child {
+    border-right: none;
+  }
+
+  .arco-table-content {
+    .arco-scrollbar:last-child {
+      .arco-table-element {
+        border-bottom: 1px solid var(--color-border-table);
+      }
+    }
+  }
+}
+
+// 编辑表格，表头的必填红色星号
+.pk_column_require {
+  .arco-table-th-title {
+    &::before {
+      content: "*";
+      color: red;
+      padding-right: 2px;
+    }
+  }
+}
+
+// 以下这些类名要放到下面，涉及到css权重优先级问题
+.pk_mt {
+  margin-top: @margin;
+}
+
+.pk_mb {
+  margin-bottom: @margin;
+}
+
+.pk_ml {
+  margin-left: @margin;
+}
+
+.pk_mr {
+  margin-right: @margin;
+}
+
+.pk_mx {
+  margin-left: @margin;
+  margin-right: @margin;
+}
+
+.pk_my {
+  margin-top: @margin;
+  margin-bottom: @margin;
+}
+
+.pk_m0 {
+  margin: 0;
+}
+
+.pk_pt {
+  padding-top: @margin;
+}
+
+.pk_pb {
+  padding-bottom: @margin;
+}
+
+.pk_pl {
+  padding-left: @margin;
+}
+
+.pk_pr {
+  padding-right: @margin;
+}
+
+.pk_px {
+  padding-left: @padding;
+  padding-right: @padding;
+}
+
+.pk_py {
+  padding-top: @padding;
+  padding-bottom: @padding;
+}
+
+.pk_p0 {
+  padding: 0;
+}
+
+.pk_round {
+  border-radius: 100px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+// 一般结合<a-row class="flex-column"></a-row>使用
+.flex-column {
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// 通用外边距
+.pk_margin {
+  margin: @margin;
+}
+
+// 通用内边距
+.pk_padding {
+  padding: @padding;
+}
+
+.pk_relative {
+  position: relative;
+}
+
+.pk_absolute {
+  position: absolute;
+}
+
+.pk_rotate_90deg {
+  transform: rotate(90deg);
+}
+
+.pk_rotate_-90deg {
+  transform: rotate(-90deg);
+}
+
+.pk_rotate_180deg {
+  transform: rotate(180deg);
+}
+
+.pk_rotate_-180deg {
+  transform: rotate(-180deg);
+}
+
+.pk_select_input {
+  width: 120px !important;
+}
+
+.pk_search_input {
+  width: 250px !important;
+}
+
+.pk_line_1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pk_line_2 {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.pk_line_3 {
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+}
+
+.pk_line_4 {
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+}
+
+.pk_line_5 {
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+}
+
+.pk_line_2,
+.pk_line_3,
+.pk_line_4,
+.pk_line_5 {
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; // 弹性伸缩盒
+  -webkit-box-orient: vertical; // 设置伸缩盒子元素排列方式
+}
+
+//.arco-modal-header{
+//  background-color: rgb(var(--primary-6));
+//}
+//.arco-modal-title{
+//  color: var(--color-neutral-1) !important;
+//}
+//.arco-modal-close-btn{
+//  color: var(--color-neutral-1) !important;
+//}
